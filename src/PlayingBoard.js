@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PlayingSquare from './PlayingSquare.js';
+import Winner from './Winner.js';
 
 export default class PlayingBoard extends Component {
     constructor(props) {
@@ -50,8 +51,9 @@ export default class PlayingBoard extends Component {
   
     winConditionCheck(board, player) {
       if (this.checkRows(board, player) || this.checkCols(board, player) || this.checkDiagonals(board, player)) {
-        alert(player + "wins the game!");
+        this.setState({winner: player});
       }
+
     }
     
     checkRows(board, player) {
@@ -69,6 +71,22 @@ export default class PlayingBoard extends Component {
       }
     }
   
+    
+    checkCols(board, player) {
+        for (let i=0; i < this.state.ySize; i++) {
+            if (board[i] === player) {
+                for (let x=0; x < board.length; x+= this.state.ySize) {
+                    if (board[i+x] !== player) {
+                        return false;
+                    }
+                }
+            } else if (board[i] !== player) {
+                continue;
+            }
+            return true;
+        }
+    }
+    
     checkDiagonals(board, player) {
       //to do: scalable diagonal check
       if (
@@ -83,22 +101,12 @@ export default class PlayingBoard extends Component {
       }
         return false;
     }
-  
-    checkCols(board, player) {
-      for (let i=0; i < this.state.ySize; i++) {
-        if (board[i] === player) {
-          for (let x=0; x < board.length; x+= this.state.ySize) {
-            if (board[i+x] !== player) {
-              return false;
-            }
-          }
-        } else if (board[i] !== player) {
-          continue;
-        }
-        return true;
-      }
+
+    restart = () => {
+        this.setState({board: [0,0,0,0,0,0,0,0,0], player: 1, winner: null});
     }
-    
+
+
     render() {
       const boardSize = this.state.xSize * this.state.ySize;
       let playingSquares = [];
@@ -116,9 +124,12 @@ export default class PlayingBoard extends Component {
       }
   
       return (
-        <div className="grid-container">
-          {playingSquares}
-        </div>
+          <React.Fragment>
+            
+          {!this.state.winner ? <div className="grid-container">{playingSquares}</div> : ""}
+            
+          {this.state.winner ? <Winner onClick={this.restart} player={this.state.winner} /> : ""}
+          </React.Fragment>
       );
       
     }

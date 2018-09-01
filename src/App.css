@@ -1,5 +1,5 @@
 body {
-  background-color: #2196F3;
+  background-color: #ffcc80;
 }
 
 .grid-container {
@@ -11,7 +11,7 @@ body {
 }
 
 .grid-item {
-  background-color: #2196F3;
+  background-color:#ffcc80;
   border: 2px solid black;
   display:flex;
   justify-content:center;
@@ -34,6 +34,25 @@ body {
 
 .grid-item:hover {
   opacity:0.5;
+}
+
+.winContainer {
+  font-size: 4em;
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+}
+
+.winner {
+  font-weight: 600;
+  color: #DA3E52;
+}
+
+.loser {
+  font-weight: 200;
+  opacity: 0.5;
+  position: relative;
 }
 
 
