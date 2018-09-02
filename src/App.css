@@ -1,5 +1,6 @@
 body {
   background-color: #ffcc80;
+  color:rgba(0,0,0,0.8);
 }
 
 .grid-container {
@@ -12,7 +13,7 @@ body {
 
 .grid-item {
   background-color:#ffcc80;
-  border: 2px solid black;
+  border: 2px solid rgba(0,0,0,0.8);
   display:flex;
   justify-content:center;
   align-items: center;
@@ -42,9 +43,11 @@ body {
   flex-direction: column;
   justify-content:center;
   align-items: center;
+  text-align:center;
 }
 
 .winner {
+  display: block;
   font-weight: 600;
   color: #DA3E52;
 }
@@ -63,6 +66,25 @@ body {
 	animation-iteration-count: 1;
 	animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 	animation-duration: 0.3s;
+}
+
+.grid-animation {
+  
+}
+
+.fade-in-winner {
+  animation-name: fadeInWinner;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+}
+
+@keyframes fadeInWinner {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeInOpacity {

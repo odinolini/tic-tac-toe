@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PlayingSquare from './PlayingSquare.js';
 import Winner from './Winner.js';
 
-export default class PlayingBoard extends Component {
+export default class TicTacToe extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -13,15 +13,17 @@ export default class PlayingBoard extends Component {
           ],
         player: 1,
         xSize: 3,
-        ySize: 3
+        ySize: 3,
+        stage: 0,
+        gridClassNames: ["grid-container"]
       };
     }
   
   
     handlePlayingSquareClick = (key) => {
   
-      if (this.state.board[key] !== 0) {
-        //do nothing if it is checked
+      if (this.state.board[key] !== 0 || this.state.winner) {
+        //do nothing if it is checked or game is won
         return;
       }
   
@@ -50,10 +52,13 @@ export default class PlayingBoard extends Component {
     }
   
     winConditionCheck(board, player) {
+      this.setState({stage: this.state.stage+1});
+      console.log(this.state.stage);
       if (this.checkRows(board, player) || this.checkCols(board, player) || this.checkDiagonals(board, player)) {
-        this.setState({winner: player});
+        this.setState({winner: player, gridClassNames: ["grid-container", "grid-animation"]});
+      } else if (this.state.stage === (this.state.xSize * this.state.ySize)-1) {
+        this.setState({winner: "tie"});
       }
-
     }
     
     checkRows(board, player) {
@@ -67,6 +72,7 @@ export default class PlayingBoard extends Component {
         } else if (board[i] !== player) {
           continue;
         }
+        console.log(i);
         return true;
       }
     }
@@ -103,7 +109,7 @@ export default class PlayingBoard extends Component {
     }
 
     restart = () => {
-        this.setState({board: [0,0,0,0,0,0,0,0,0], player: 1, winner: null});
+        this.setState({board: [0,0,0,0,0,0,0,0,0], player: 1, winner: null, stage: 0});
     }
 
 
@@ -122,13 +128,15 @@ export default class PlayingBoard extends Component {
           board={this.state.board}
           />);
       }
+
   
       return (
           <React.Fragment>
-            
-          {!this.state.winner ? <div className="grid-container">{playingSquares}</div> : ""}
-            
           {this.state.winner ? <Winner onClick={this.restart} player={this.state.winner} /> : ""}
+            
+          {/* !this.state.winner ? <div className="grid-container">{playingSquares}</div> : "" */}
+          <div className={this.state.gridClassNames.join(" ")} >{playingSquares}</div>
+            
           </React.Fragment>
       );
       
