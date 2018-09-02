@@ -52,9 +52,10 @@ export default class TicTacToe extends Component {
             this.checkDiagonals(board, player)
         ) {
             this.setState({
-                winner: player,
-                gridClassNames: ["grid-container", "grid-animation"]
+                
             });
+
+            setTimeout(() => { this.setState({winner: player, gridClassNames: ["grid-container", "grid-animation"]}) }, 1000);
         } else if (
             this.state.stage ===
             this.state.xSize * this.state.ySize - 1
@@ -117,6 +118,7 @@ export default class TicTacToe extends Component {
             board: [0, 0, 0, 0, 0, 0, 0, 0, 0],
             player: 1,
             stage: 0,
+            gridClassNames: ["grid-container"],
             winner: null,
             winRow: null,
             winCol: null,

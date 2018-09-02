@@ -79,23 +79,9 @@ body {
 .fade-in-winner {
   animation-name: fadeInWinner;
   animation-fill-mode: forwards;
-  animation-duration: 1s;
+  animation-duration: 2s;
 }
 
-/* .grid-container:after {
-  content: " ";
-    width: 300px;
-    position: absolute;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    top:300px;
-    border-top: 5px solid #ff5722;
-    z-index:1;
-    animation-name: drawRowLine;
-    animation-fill-mode: forwards;
-    animation-duration: 1s;
-} */
 
 .grid-item.rowline:after {
   z-index:1;
@@ -149,6 +135,33 @@ body {
   animation-duration: 1s;
 }
 
+/* .grid-animation {
+  animation-name: gridAnimation;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+} */
+
+@keyframes gridAnimation {
+ 0% {
+  transform: translateY(-30%);
+ }  
+ 100% {
+
+ }
+}
+
+
+
+@keyframes fadeInWinner {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    /* transform: translateY(0%); */
+  }
+}
+
 @keyframes drawColLine {
   0% {
     height:0px;
@@ -162,20 +175,12 @@ body {
   0% {
     width:0px;
   }
-
+  
   100% {
     width: 300px;
   }
 }
 
-@keyframes fadeInWinner {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 
 @keyframes fadeInOpacity {
   0% {
