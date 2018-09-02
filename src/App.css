@@ -1,55 +1,63 @@
 body {
-  background-color: #ffcc80;
-  color:rgba(0,0,0,0.8);
+    background-color: #ffcc80;
+    color: rgba(0, 0, 0, 0.8);
 }
 
 .grid-container {
-  display: grid;
-  grid-template-columns: 100px 100px 100px;
-  grid-template-rows: 100px 100px 100px;
-  justify-content:center;
-  margin-top:50px;
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
+    justify-content: center;
+    margin-top: 50px;
 }
 
+/* .grid-container:before,
+.grid-container:after {
+    position: absolute;
+    content: " ";
+    left: 50px;
+    border-left: 5px solid red;
+} */
+
+
 .grid-item {
-  background-color:#ffcc80;
-  border: 2px solid rgba(0,0,0,0.8);
-  display:flex;
-  justify-content:center;
+  background-color: #ffcc80;
+  border: 2px solid rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-.grid-item:nth-child(n+7) {
-
-  border-bottom:0;
+.grid-item:nth-child(n + 7) {
+  border-bottom: 0;
 }
-.grid-item:nth-child(-n+3) {
-  border-top:0;
+.grid-item:nth-child(-n + 3) {
+  border-top: 0;
 }
 .grid-item:nth-child(3n) {
-  border-right:0;
+  border-right: 0;
 }
-.grid-item:nth-child(3n+1) {
-  border-left:0;
+.grid-item:nth-child(3n + 1) {
+  border-left: 0;
 }
 
 .grid-item:hover {
-  opacity:0.5;
+  opacity: 0.5;
 }
 
 .winContainer {
   font-size: 4em;
-  display:flex;
+  display: flex;
   flex-direction: column;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
-  text-align:center;
+  text-align: center;
 }
 
 .winner {
   display: block;
   font-weight: 600;
-  color: #DA3E52;
+  color: #da3e52;
 }
 
 .loser {
@@ -58,24 +66,106 @@ body {
   position: relative;
 }
 
-
 .fade-in {
-	opacity: 1;
+  opacity: 1;
   animation-name: fadeInOpacity;
   animation-fill-mode: forwards;
-	animation-iteration-count: 1;
-	animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-	animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation-duration: 0.3s;
 }
 
-.grid-animation {
-  
-}
 
 .fade-in-winner {
   animation-name: fadeInWinner;
   animation-fill-mode: forwards;
   animation-duration: 1s;
+}
+
+/* .grid-container:after {
+  content: " ";
+    width: 300px;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top:300px;
+    border-top: 5px solid #ff5722;
+    z-index:1;
+    animation-name: drawRowLine;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+} */
+
+.grid-item.rowline:after {
+  z-index:1;
+  border-top: 5px solid #ff5722;
+  content: " ";
+  width: 300px;
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  animation-name: drawRowLine;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+}
+
+.grid-item.colline:after {
+  z-index:1;
+  border-left: 5px solid #ff5722;
+  content: " ";
+  height: 300px;
+  position: absolute;
+  margin: 0 auto;
+  animation-name: drawColLine;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+}
+
+.grid-item.backDiagLine:after {
+  z-index:1;
+  border-left: 5px solid #ff5722;
+  content: " ";
+  height: 300px;
+  position: absolute;
+  margin: 0 auto;
+  transform: rotateZ(-45deg);
+  animation-name: drawColLine;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+}
+
+.grid-item.fwdDiagLine:after {
+  z-index:1;
+  border-left: 5px solid #ff5722;
+  content: " ";
+  height: 300px;
+  position: absolute;
+  margin: 0 auto;
+  transform: rotateZ(45deg);
+  animation-name: drawColLine;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+}
+
+@keyframes drawColLine {
+  0% {
+    height:0px;
+  }
+  100% {
+    height:300px;
+  }
+}
+
+@keyframes drawRowLine {
+  0% {
+    width:0px;
+  }
+
+  100% {
+    width: 300px;
+  }
 }
 
 @keyframes fadeInWinner {
@@ -88,11 +178,11 @@ body {
 }
 
 @keyframes fadeInOpacity {
-	0% {
-		opacity: 0;
-	}
-	100% {
+  0% {
+    opacity: 0;
+  }
+  100% {
     opacity: 1;
-    font-size:3em;
-	}
+    font-size: 3em;
+  }
 }
