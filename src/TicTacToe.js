@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PlayingSquare from './PlayingSquare.js';
+import Winner from './Winner.js';
+import TurnDisplayer from './TurnDisplayer.js';
 
-export default class PlayingBoard extends Component {
+export default class TicTacToe extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -12,15 +14,17 @@ export default class PlayingBoard extends Component {
           ],
         player: 1,
         xSize: 3,
-        ySize: 3
+        ySize: 3,
+        stage: 0,
+        gridClassNames: ["grid-container"]
       };
     }
   
   
     handlePlayingSquareClick = (key) => {
   
-      if (this.state.board[key] !== 0) {
-        //do nothing if it is checked
+      if (this.state.board[key] !== 0 || this.state.winner) {
+        //do nothing if it is checked or game is won
         return;
       }
   
@@ -49,8 +53,12 @@ export default class PlayingBoard extends Component {
     }
   
     winConditionCheck(board, player) {
+      this.setState({stage: this.state.stage+1});
+      console.log(this.state.stage);
       if (this.checkRows(board, player) || this.checkCols(board, player) || this.checkDiagonals(board, player)) {
-        alert(player + "wins the game!");
+        this.setState({winner: player, gridClassNames: ["grid-container", "grid-animation"]});
+      } else if (this.state.stage === (this.state.xSize * this.state.ySize)-1) {
+        this.setState({winner: "tie"});
       }
     }
     
@@ -65,10 +73,27 @@ export default class PlayingBoard extends Component {
         } else if (board[i] !== player) {
           continue;
         }
+        console.log(i);
         return true;
       }
     }
   
+    
+    checkCols(board, player) {
+        for (let i=0; i < this.state.ySize; i++) {
+            if (board[i] === player) {
+                for (let x=0; x < board.length; x+= this.state.ySize) {
+                    if (board[i+x] !== player) {
+                        return false;
+                    }
+                }
+            } else if (board[i] !== player) {
+                continue;
+            }
+            return true;
+        }
+    }
+    
     checkDiagonals(board, player) {
       //to do: scalable diagonal check
       if (
@@ -83,22 +108,12 @@ export default class PlayingBoard extends Component {
       }
         return false;
     }
-  
-    checkCols(board, player) {
-      for (let i=0; i < this.state.ySize; i++) {
-        if (board[i] === player) {
-          for (let x=0; x < board.length; x+= this.state.ySize) {
-            if (board[i+x] !== player) {
-              return false;
-            }
-          }
-        } else if (board[i] !== player) {
-          continue;
-        }
-        return true;
-      }
+
+    restart = () => {
+        this.setState({board: [0,0,0,0,0,0,0,0,0], player: 1, winner: null, stage: 0});
     }
-    
+
+
     render() {
       const boardSize = this.state.xSize * this.state.ySize;
       let playingSquares = [];
@@ -114,11 +129,18 @@ export default class PlayingBoard extends Component {
           board={this.state.board}
           />);
       }
+
   
       return (
-        <div className="grid-container">
-          {playingSquares}
-        </div>
+          <React.Fragment>
+          {this.state.winner ? "" : <TurnDisplayer player={this.state.player} />}
+
+          {this.state.winner ? <Winner onClick={this.restart} player={this.state.winner} /> : ""}
+            
+          {/* !this.state.winner ? <div className="grid-container">{playingSquares}</div> : "" */}
+          <div className={this.state.gridClassNames.join(" ")} >{playingSquares}</div>
+            
+          </React.Fragment>
       );
       
     }

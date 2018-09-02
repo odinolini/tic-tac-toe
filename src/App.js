@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import PlayingBoard from './PlayingBoard.js';
+import TicTacToe from './TicTacToe.js';
 
 class App extends Component {
   render() {
     return (
-        <PlayingBoard />
+        <TicTacToe />
     );
   }
 }
