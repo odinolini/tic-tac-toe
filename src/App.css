@@ -8,7 +8,7 @@ body {
   grid-template-columns: 100px 100px 100px;
   grid-template-rows: 100px 100px 100px;
   justify-content:center;
-  padding-top:100px;
+  margin-top:50px;
 }
 
 .grid-item {

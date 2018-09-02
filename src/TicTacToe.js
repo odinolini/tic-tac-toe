@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PlayingSquare from './PlayingSquare.js';
 import Winner from './Winner.js';
+import TurnDisplayer from './TurnDisplayer.js';
 
 export default class TicTacToe extends Component {
     constructor(props) {
@@ -132,6 +133,8 @@ export default class TicTacToe extends Component {
   
       return (
           <React.Fragment>
+          {this.state.winner ? "" : <TurnDisplayer player={this.state.player} />}
+
           {this.state.winner ? <Winner onClick={this.restart} player={this.state.winner} /> : ""}
             
           {/* !this.state.winner ? <div className="grid-container">{playingSquares}</div> : "" */}
