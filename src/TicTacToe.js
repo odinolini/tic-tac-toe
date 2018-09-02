@@ -54,7 +54,7 @@ export default class TicTacToe extends Component {
   
     winConditionCheck(board, player) {
       this.setState({stage: this.state.stage+1});
-      console.log(this.state.stage);
+      
       if (this.checkRows(board, player) || this.checkCols(board, player) || this.checkDiagonals(board, player)) {
         this.setState({winner: player, gridClassNames: ["grid-container", "grid-animation"]});
       } else if (this.state.stage === (this.state.xSize * this.state.ySize)-1) {
@@ -73,7 +73,7 @@ export default class TicTacToe extends Component {
         } else if (board[i] !== player) {
           continue;
         }
-        console.log(i);
+        console.log("Row: ", i);
         return true;
       }
     }
@@ -90,20 +90,21 @@ export default class TicTacToe extends Component {
             } else if (board[i] !== player) {
                 continue;
             }
+            console.log("Col: ", i);
             return true;
         }
     }
     
     checkDiagonals(board, player) {
       //to do: scalable diagonal check
-      if (
-        (board[0] === player &&
+      if ((
+        board[0] === player &&
         board[4] === player &&
-        board[8] === player) ||
-        (board[2] === player &&
+        board[8] === player )||(
+        board[2] === player &&
         board[4] === player &&
-        board[6] === player)
-      ) {
+        board[6] === player
+      )) {
         return true;
       }
         return false;
